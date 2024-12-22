@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Chai aur tweet
+{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center mt-4">Welcome to TweetApp by Dharya.You can post your tweets below !!!</h1>
+
+<h2>
+
+  {% comment %} here if form.instance.pk is checking whether the existing instance has a primary key(pk).if it has , it means we are editing the existing records only. But if not, we are creating a new tweet.{% endcomment %}
+
+    {% if form.instance.pk %} 
+    Edit Tweet 
+    {% else %}
+    Create tweet 
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button class="btn btn-warning" type="submit">Submit</button>
+    </form>
+    <a href="{% url 'tweet_list' %}">Back To Tweet List</a>
+</h2>
+
+{% endblock %}
+
+{% comment %} enctype = encryption type.
+we are specifying the "enctype", because our form is also accepting the image also.
+
+{% endcomment %}

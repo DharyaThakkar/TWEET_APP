@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Chai aur tweet
+{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center mt-4 mb-4">Welcome to TweetApp by Dharya.You can post your tweets below !!!</h1>
+
+<a class="btn btn-primary mb-4" href="{% url 'tweet_create' %}">Create a tweet</a>
+<div class="container row gap-3">
+    {% for tweet in tweets %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{tweet.photo.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{tweet.user.username}}</h5>
+          <p class="card-text">{{tweet.text}}</p>
+          {% if tweet.user == user%}
+          <a href="{% url 'tweet_edit' tweet.id%}" class="btn btn-primary">Edit</a>
+          <a href="{% url 'tweet_delete' tweet.id%}" class="btn btn-danger">Delete</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% comment %}  
+
+when we are doing tweet.user.username, we are getting the username of the user from the predefined User model created by django itself  
+But if we only do, tweet.user, we will actually get the entire user object(usually an instance of the User model).To retrieve specific information or fields about the user, such as the username, you need to specify the attribute you want, e.g., tweet.user.username.
+
+meaning of cascade = sab ek dusre ke upar dependent hai.
+
+what is  on_delete = models.CASCADE in django, when we are creating a One-to-One relationship ?
+In Django, the on_delete=models.CASCADE attribute is used in ForeignKey relationships to define the behavior when the referenced object (the related model) is deleted.
+
+When you define a ForeignKey in a model, you are creating a relationship where one model references another. The on_delete attribute specifies what should happen to the related objects (those with the ForeignKey) when the referenced object is deleted from the database.
+When you set on_delete=models.CASCADE, it means that when the referenced object (the object that the ForeignKey points to) is deleted, all related objects (the objects containing the ForeignKey) will also be deleted automatically. This is known as cascading delete.
+
+on_delete=models.CASCADE ensures that when the referenced object is deleted, all related objects are also deleted.
+This is useful to maintain referential integrity and avoid orphaned records in the database.
+
+Note :-> The cascading delete occurs when the referenced object is deleted, not when the child object is deleted.if the child object is deleted, it won't affect the referenced object.
+
+very-very Important :- user is a part of request, so we can access it in our django templates from anywhere.
+
+{% endcomment %}
