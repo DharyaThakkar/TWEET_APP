@@ -2,4 +2,4 @@ This is an complete Fullstack project build by me using the Django Framework. it
 
 Technologies used :-
 for Frontend :- HTML,Bootstrap(version 5.3.3)
-for Backend :- Django(version 5.1.4)
+for Backend :- Django(version 5.1.4), sqllite3
